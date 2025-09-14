@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package user.v1;
+
+// option go_package = "service-name/proto/userpb";
+// option go_package = "go-protos/proto/userpb";
+option go_package = "./proto/userpb";
+
+
+// User 服务接口
+service UserService {
+  // 根据用户名获取用户
+  rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameResponse);
+
+  // 根据ID获取用户
+  rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+
+  // 根据邮箱获取用户
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse);
+
+  // 创建新用户
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+
+  // 更新用户邮箱
+  rpc UpdateUserEmail(UpdateUserEmailRequest) returns (UpdateUserEmailResponse);
+
+  // 更新用户密码
+  rpc UpdateUserPassword(UpdateUserPasswordRequest) returns (UpdateUserPasswordResponse);
+}
+
+// 用户信息
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password_hash = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+// 根据用户名获取用户请求
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+// 根据用户名获取用户响应
+message GetUserByUsernameResponse {
+  User user = 1;
+}
+
+// 根据ID获取用户请求
+message GetUserByIdRequest {
+  string id = 1;
+}
+
+// 根据ID获取用户响应
+message GetUserByIdResponse {
+  User user = 1;
+}
+
+// 根据邮箱获取用户请求
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+// 根据邮箱获取用户响应
+message GetUserByEmailResponse {
+  User user = 1;
+}
+
+// 创建用户请求
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string password_hash = 3;
+}
+
+// 创建用户响应
+message CreateUserResponse {
+  User user = 1;
+}
+
+// 更新用户邮箱请求
+message UpdateUserEmailRequest {
+  string user_id = 1;
+  string email = 2;
+}
+
+// 更新用户邮箱响应
+message UpdateUserEmailResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// 更新用户密码请求
+message UpdateUserPasswordRequest {
+  string user_id = 1;
+  string password_hash = 2;
+}
+
+// 更新用户密码响应
+message UpdateUserPasswordResponse {
+  bool success = 1;
+  string message = 2;
+}
